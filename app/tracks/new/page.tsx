@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FileUpload from '@/app/components/FileUpload';
 
@@ -8,7 +8,7 @@ interface Album {
   title: string;
 }
 
-export default function NewTrackPage() {
+function NewTrackForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const albumId = searchParams.get('albumId');
@@ -103,5 +103,13 @@ export default function NewTrackPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function NewTrackPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Загрузка...</div>}>
+      <NewTrackForm />
+    </Suspense>
   );
 }
