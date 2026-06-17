@@ -14,6 +14,19 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const index = albums.findIndex(a => a.id === id);
   if (index === -1) return NextResponse.json({ error: 'Не найден' }, { status: 404 });
   
+  if (body.title !== undefined && body.title.length < 2) {
+    return NextResponse.json({ error: 'Название альбома должно содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.title !== undefined && body.title.length > 50) {
+    return NextResponse.json({ error: 'Название альбома не может превышать 50 символов' }, { status: 422 });
+  }
+  if (body.genre !== undefined && body.genre.length < 2) {
+    return NextResponse.json({ error: 'Жанр должен содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.genre !== undefined && body.genre.length > 30) {
+    return NextResponse.json({ error: 'Жанр не может превышать 30 символов' }, { status: 422 });
+  }
+  
   const updated = { ...albums[index], ...body, updatedAt: new Date().toISOString() };
   updateAlbum(index, updated);
   return NextResponse.json(updated);

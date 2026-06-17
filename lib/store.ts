@@ -86,7 +86,7 @@ export const deleteAlbum = (i: number) => { albums.splice(i, 1); saveData(); };
 export const addTrack = (t: Track) => { tracks.push(t); saveData(); };
 export const deleteTrack = (i: number) => { tracks.splice(i, 1); saveData(); };
 
-// Поиск
+// поиск
 export const findArtist = (id: string) => artists.find(a => a.id === id);
 export const findAlbum = (id: string) => albums.find(a => a.id === id);
 export const findTrack = (id: string) => tracks.find(t => t.id === id);

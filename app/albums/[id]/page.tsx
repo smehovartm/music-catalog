@@ -45,7 +45,6 @@ export default function AlbumDetailPage() {
     router.push(`/albums/${album?.id}/edit`);
   };
 
-
   if (loading) return <div className="text-center py-10">Загрузка...</div>;
   if (!album) return null;
 
@@ -53,17 +52,10 @@ export default function AlbumDetailPage() {
     <div className="max-w-3xl mx-auto">
       <div className="bg-white relative overflow-hidden rounded-lg shadow-md p-6 mb-6">
         <div className="flex justify-between items-start mb-4">
-          <h1 className="text-3xl font-bold">{album.title}</h1>
+          <h1 className="text-3xl font-bold truncate">{album.title}</h1>
           <div className="flex w-1 h-1 items-end flex-col gap-1">
-            <ActionButton
-              type="edit"
-              onEdit={editAlbum}
-            />
-            <ActionButton
-              type="delete"
-              onDelete={deleteAlbum}
-              confirmMessage="Удалить альбом?"
-            />
+            <ActionButton type="edit" onEdit={editAlbum} />
+            <ActionButton type="delete" onDelete={deleteAlbum} confirmMessage="Удалить альбом?" />
           </div>
         </div>
         
@@ -83,6 +75,7 @@ export default function AlbumDetailPage() {
           <p><span className="font-semibold">Тип:</span> {album.isStudio ? 'Студийный' : 'Концертный'}</p>
         </div>
       </div>
+
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Треки</h2>
@@ -95,20 +88,18 @@ export default function AlbumDetailPage() {
           <p className="text-gray-500 text-center py-4">Нет треков</p>
         ) : (
           <div className="space-y-2">
-            {tracks.map((track, idx) => (
+            {tracks.map((track) => (
               <div key={track.id} className="relative rounded-xl overflow-hidden bg-gray-200">
                 <div className="py-3">
                   <div className="flex justify-between items-center ml-5 mr-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-medium text-gray-800">{track.title}</span>
-                    </div>
-                      <div className='flex w-1 items-end flex-col gap-1'>
-                        <ActionButton
+                    <span className="font-medium text-gray-800 truncate">{track.title}</span>
+                    <div className="flex w-1 items-end flex-col gap-1">
+                      <ActionButton
                         type="delete"
                         onDelete={() => deleteTrack(track.id)}
                         confirmMessage="Удалить трек?"
                       />
-                      </div>
+                    </div>
                   </div>
                   <audio controls className="w-full h-8" src={track.audioPath}>
                     <source src={track.audioPath} type="audio/mpeg" />

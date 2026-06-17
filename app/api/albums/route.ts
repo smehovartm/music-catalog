@@ -31,11 +31,25 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
+  
   if (!body.title || !body.releaseYear || !body.genre || !body.artistId) {
     return NextResponse.json({ error: 'Все поля обязательны' }, { status: 422 });
   }
   if (!findArtist(body.artistId)) {
     return NextResponse.json({ error: 'Исполнитель не найден' }, { status: 422 });
+  }
+  
+  if (body.title.length < 2) {
+    return NextResponse.json({ error: 'Название альбома должно содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.title.length > 50) {
+    return NextResponse.json({ error: 'Название альбома не может превышать 50 символов' }, { status: 422 });
+  }
+  if (body.genre.length < 2) {
+    return NextResponse.json({ error: 'Жанр должен содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.genre.length > 30) {
+    return NextResponse.json({ error: 'Жанр не может превышать 30 символов' }, { status: 422 });
   }
   
   const newAlbum = {

@@ -81,12 +81,12 @@ export default function ArtistsPage() {
             ) : (
               artists.map(artist => (
                 <div key={artist.id} className="relative rounded overflow-hidden bg-gray-200">
-                  <div className="p-4 flex justify-between items-center">
-                    <div>
-                      <Link href={`/artists/${artist.id}`} className="text-xl font-semibold text-blue-600">
+                  <div className="p-4 flex items-center gap-4">
+                    <div className="flex-1 min-w-0">
+                      <Link href={`/artists/${artist.id}`} className="text-xl font-semibold text-blue-600 truncate block">
                         {artist.name}
                       </Link>
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 truncate">
                         {artist.country} • {artist.isActive ? 'Активен' : 'Не активен'}
                       </p>
                     </div>

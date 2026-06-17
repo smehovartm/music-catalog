@@ -102,16 +102,20 @@ export default function AlbumsPage() {
               albums.map(album => (
                 <div key={album.id} className="relative rounded overflow-hidden bg-gray-200">
                   <div className="p-4 flex items-center gap-4">
-                    <div className="w-16 h-16 rounded flex items-center justify-center">
+                    <div className="w-16 h-16 rounded flex items-center justify-center flex-shrink-0">
                       {album.coverPath ? (
                         <img src={album.coverPath} alt={album.title} className="w-full h-full object-cover rounded" />
                       ) : (
                         <img src="/logo.svg" alt="Logo" className="w-16 h-16 object-cover rounded" />
                       )}
                     </div>
-                    <div className="flex-1">
-                      <Link href={`/albums/${album.id}`} className="font-semibold text-blue-600">{album.title}</Link>
-                      <p className="text-sm text-gray-600">{album.artistName} • {album.releaseYear} • {album.genre}</p>
+                    <div className="flex-1 min-w-0">
+                      <Link href={`/albums/${album.id}`} className="font-semibold text-blue-600 truncate block">
+                        {album.title}
+                      </Link>
+                      <p className="text-sm text-gray-600 truncate">
+                        {album.artistName} • {album.releaseYear} • {album.genre}
+                      </p>
                     </div>
                     <div className="flex w-1 items-end flex-col gap-1">
                       <ActionButton 

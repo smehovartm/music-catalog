@@ -48,7 +48,7 @@ export default function ActionButton({
   const showHover = !isMobile && isHovered;
 
   return (
-    <div >
+    <div>
       <div
         className="absolute top-0 right-0 h-full transition-all duration-500"
         style={{

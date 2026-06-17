@@ -1,14 +1,16 @@
 'use client';
-import { useEffect, useState, Suspense } from 'react';
+import { Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FileUpload from '@/app/components/FileUpload';
+import CharCounter from '@/app/components/CharCounter';
 
 interface Album {
   id: string;
   title: string;
 }
 
-function NewTrackForm() {
+function NewTrackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const albumId = searchParams.get('albumId');
@@ -61,22 +63,26 @@ function NewTrackForm() {
       
       <form onSubmit={submit} className="bg-white rounded-lg shadow p-6 space-y-4">
         <div>
-          <label className="block font-medium mb-1">Название трека *</label>
-          <input 
-            type="text" 
-            required 
+          <div className="flex justify-between items-center">
+            <label className="block font-medium mb-1">Название трека *</label>
+            <CharCounter value={title} maxLength={50} />
+          </div>
+          <input
+            type="text"
+            required
+            maxLength={50}
             className="w-full border p-2 rounded"
-            value={title} 
-            onChange={e => setTitle(e.target.value)} 
+            value={title}
+            onChange={e => setTitle(e.target.value)}
           />
         </div>
         
         <div>
           <label className="block font-medium mb-1">Альбом *</label>
-          <select 
-            required 
-            className="w-full border p-2 rounded" 
-            value={selectedAlbum} 
+          <select
+            required
+            className="w-full border p-2 rounded"
+            value={selectedAlbum}
             onChange={e => setSelectedAlbum(e.target.value)}
           >
             <option value="">Выберите альбом</option>
@@ -94,10 +100,10 @@ function NewTrackForm() {
           )}
         </div>
         
-        <button 
-          type="submit" 
-          disabled={loading} 
-          className="bg-blue-600 text-white px-4 py-2 rounded w-full disabled:opacity-50"
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-600 text-white px-4 py-2 rounded w-full"
         >
           {loading ? 'Добавление...' : 'Добавить'}
         </button>
@@ -109,7 +115,7 @@ function NewTrackForm() {
 export default function NewTrackPage() {
   return (
     <Suspense fallback={<div className="text-center py-10">Загрузка...</div>}>
-      <NewTrackForm />
+      <NewTrackContent />
     </Suspense>
   );
 }

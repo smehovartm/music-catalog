@@ -73,17 +73,10 @@ export default function ArtistDetailPage() {
     <div className="max-w-3xl mx-auto">
       <div className="bg-white relative overflow-hidden rounded-lg shadow-md p-6 mb-6">
         <div className="flex justify-between items-start mb-4">
-          <h1 className="text-3xl font-bold">{artist.name}</h1>
+          <h1 className="text-3xl font-bold truncate">{artist.name}</h1>
           <div className="flex w-1 h-1 items-end flex-col gap-1">
-            <ActionButton
-              type="edit"
-              onEdit={editArtist}
-            />
-            <ActionButton
-              type="delete"
-              onDelete={handleDeleteArtist}
-              confirmMessage="Удалить исполнителя?"
-            />
+            <ActionButton type="edit" onEdit={editArtist} />
+            <ActionButton type="delete" onDelete={handleDeleteArtist} confirmMessage="Удалить исполнителя?" />
           </div>
         </div>
         <p><span className="font-semibold">Страна:</span> {artist.country}</p>
@@ -104,28 +97,25 @@ export default function ArtistDetailPage() {
           <div className="grid gap-3">
             {artist.albums.map(album => (
               <div key={album.id} className="relative rounded overflow-hidden bg-gray-200">
-                <div className=" p-3 flex items-center gap-3">
-                  {album.coverPath ? (
-                    <img src={album.coverPath} alt={album.title} className="w-12 h-12 object-cover rounded" />
-                  ) : (
-                    <img src="/logo.svg" alt="Logo" className="w-12 h-12 object-cover rounded" />
-                  )}
-                  <div className="flex-1">
-                    <Link href={`/albums/${album.id}`} className="font-semibold text-blue-600 hover:underline">
+                <div className="p-3 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded flex items-center justify-center flex-shrink-0">
+                    {album.coverPath ? (
+                      <img src={album.coverPath} alt={album.title} className="w-full h-full object-cover rounded" />
+                    ) : (
+                      <img src="/logo.svg" alt="Logo" className="w-12 h-12 object-cover rounded" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <Link href={`/albums/${album.id}`} className="font-semibold text-blue-600 hover:underline truncate block">
                       {album.title}
                     </Link>
-                    <p className="text-sm text-gray-600">{album.releaseYear} • {album.genre}</p>
+                    <p className="text-sm text-gray-600 truncate">
+                      {album.releaseYear} • {album.genre}
+                    </p>
                   </div>
                   <div className="flex w-1 items-end flex-col gap-1">
-                    <ActionButton
-                      type="edit"
-                      onEdit={() => editAlbum(album.id)}
-                    />
-                    <ActionButton
-                      type="delete"
-                      onDelete={() => deleteAlbum(album.id)}
-                      confirmMessage="Удалить альбом?"
-                    />
+                    <ActionButton type="edit" onEdit={() => editAlbum(album.id)} />
+                    <ActionButton type="delete" onDelete={() => deleteAlbum(album.id)} confirmMessage="Удалить альбом?" />
                   </div>
                 </div>
               </div>

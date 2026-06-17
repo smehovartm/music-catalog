@@ -15,6 +15,19 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const index = artists.findIndex(a => a.id === id);
   if (index === -1) return NextResponse.json({ error: 'Не найден' }, { status: 404 });
   
+  if (body.name !== undefined && body.name.length < 2) {
+    return NextResponse.json({ error: 'Имя исполнителя должно содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.name !== undefined && body.name.length > 50) {
+    return NextResponse.json({ error: 'Имя исполнителя не может превышать 50 символов' }, { status: 422 });
+  }
+  if (body.country !== undefined && body.country.length < 2) {
+    return NextResponse.json({ error: 'Страна должна содержать минимум 2 символа' }, { status: 422 });
+  }
+  if (body.country !== undefined && body.country.length > 50) {
+    return NextResponse.json({ error: 'Страна не может превышать 50 символов' }, { status: 422 });
+  }
+  
   const updated = { ...artists[index], ...body, updatedAt: new Date().toISOString() };
   updateArtist(index, updated);
   return NextResponse.json(updated);
