@@ -70,26 +70,26 @@ export default function AlbumsPage() {
         <Link href="/albums/new" className="bg-blue-600 text-white px-4 py-2 rounded">+ Новый</Link>
       </div>
 
-      <div className="bg-white p-4 rounded shadow mb-6 grid md:grid-cols-2 gap-4">
-        <input 
-          type="text" 
-          placeholder="Поиск..." 
-          className="border text-black p-2 rounded" 
-          value={search} 
-          onChange={e => setSearch(e.target.value)} 
-        />
-        <select 
-          className="border text-black p-2 rounded" 
-          value={artistId} 
-          onChange={e => { 
-            setArtistId(e.target.value); 
-            setPage(1);
-          }}
-        >
-          <option value="">Все исполнители</option>
-          {artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-        </select>
-      </div>
+      <div className="bg-white p-4 rounded shadow mb-6 flex flex-col sm:flex-row gap-4">
+  <input 
+    type="text" 
+    placeholder="Поиск..." 
+    className="border p-2 rounded w-full sm:flex-1" 
+    value={search} 
+    onChange={e => setSearch(e.target.value)} 
+  />
+  <select 
+    className="border p-2 rounded w-full sm:w-auto" 
+    value={artistId} 
+    onChange={e => { 
+      setArtistId(e.target.value); 
+      setPage(1);
+    }}
+  >
+    <option value="">Все исполнители</option>
+    {artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+  </select>
+</div>
 
       {loading && <div className="text-center py-10">Загрузка...</div>}
 
